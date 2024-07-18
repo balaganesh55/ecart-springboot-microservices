@@ -139,15 +139,13 @@ public class OrderServiceImpl implements OrderService {
 		
 		for (OrderDTO order:orderDTOs) {
 			order.setCustomer(customerDTO);
+			Set<OrderItemDTO> orderItems=order.getOrderItems();
+			for(OrderItemDTO item : orderItems) {
+				ProductDTO productDTO = productApiClient.fetchProductDetails(item.getId());
+				item.setProduct(productDTO);
+			}
 		};
 		
-		
-//		for(OrderDTO item : orderDTOs) {
-//			ProductDTO productDTO = productApiClient.fetchProductDetails(item.getId());
-//			System.out.println("id   "+item.getId());
-//			System.out.println("productdetails   "+productDTO.getProductName());
-//			//item.setOrderItems(productDTO);
-//		}
 		return orderDTOs;
 	}
 
