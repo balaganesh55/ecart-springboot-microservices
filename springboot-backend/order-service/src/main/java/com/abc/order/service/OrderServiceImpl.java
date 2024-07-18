@@ -1,12 +1,13 @@
 package com.abc.order.service;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,6 @@ import com.abc.order.entity.OrderItem;
 import com.abc.order.exception.ResourceNotFoundException;
 import com.abc.order.repository.OrderRepository;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -33,12 +32,18 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private ModelMapper modelMapper;
-
+	
 	@Autowired
-	private RestTemplate restTemplate;
+	private ProductApiClient productApiClient;
+	
+	@Autowired
+	private CustomerApiClient customerApiClient;
+
+//	@Autowired
+//	private RestTemplate restTemplate;
 
 	@Override
-	public OrderDTO saveOrder(OrderDTO orderDTO) {
+	public String saveOrder(OrderDTO orderDTO) {
 
 		Set<OrderItemDTO> orderItemDTOs = orderDTO.getOrderItems();
 
@@ -47,13 +52,16 @@ public class OrderServiceImpl implements OrderService {
 		for (OrderItemDTO orderItemDTO : orderItemDTOs) {
 
 			int qty = orderItemDTO.getQuantity();
-			long productId = orderItemDTO.getProductId();
+			long productId = orderItemDTO.getProduct().getId();
 
 			// get the product details
-			ResponseEntity<ProductDTO> responseEntity = restTemplate
-					.getForEntity("http://localhost:8082/product/" + productId, ProductDTO.class);
-
-			ProductDTO productDTO = responseEntity.getBody();
+//			ResponseEntity<ProductDTO> responseEntity = restTemplate
+//					.getForEntity("http://localhost:8082/product/" + productId, ProductDTO.class);
+//
+//			ProductDTO productDTO = responseEntity.getBody();
+			
+			ProductDTO productDTO = productApiClient.fetchProductDetails(productId);
+			
 
 			double itemTotal = qty * productDTO.getProductPrice();
 
@@ -73,14 +81,14 @@ public class OrderServiceImpl implements OrderService {
 		order.setOrderAmount(orderDTO.getOrderAmount());
 		order.setOrderDate(orderDTO.getOrderDate());
 		order.setOrderStatus(orderDTO.getOrderStatus());
-		order.setCustomerId(orderDTO.getCustomerId());
+		order.setCustomerId(orderDTO.getCustomer().getId());
 
 		Set<OrderItem> orderItems = new LinkedHashSet<>();
 
 		for (OrderItemDTO itemDTO : orderItemDTOs) {
 			OrderItem orderItem = new OrderItem();
 			orderItem.setItemTotal(itemDTO.getItemTotal());
-			orderItem.setProductId(itemDTO.getProductId());
+			orderItem.setProductId(itemDTO.getProduct().getId());
 			orderItem.setQuantity(itemDTO.getQuantity());
 			
 			orderItem.setOrder(order);
@@ -90,73 +98,56 @@ public class OrderServiceImpl implements OrderService {
 
 		order.setOrderItems(orderItems);
 
-		orderRepository.save(order);
+		orderRepository.save(order);		
 
-		// convert entity to dto
-		OrderDTO newOrder = modelMapper.map(order, OrderDTO.class);
-
-		return newOrder;
+		return "Order Successfully Placed";
 	}
 
 	@Override
 	public OrderDTO findOrderById(long orderId) {
-	    Optional<Order> optionalOrder = orderRepository.findById(orderId);
-	    if(optionalOrder.isEmpty()) {
-	        throw new ResourceNotFoundException("Order not found");
-	    }
-	    Order order = optionalOrder.get();
-	    
-	    //get the customer by using customer id
-	    ResponseEntity<CustomerDTO> customerResponse = restTemplate
-	            .getForEntity("http://localhost:8081/customer/" + order.getCustomerId(), CustomerDTO.class);
-	    CustomerDTO customerDTO = customerResponse.getBody();
-	    
-	    //get the products details by using productid
-	    Set<OrderItem> orders = order.getOrderItems();
-	    Set<OrderItemDTO> orderItemsDTO = new HashSet<>();
-	    for(OrderItem product : orders) {
-	        ResponseEntity<ProductDTO> productResponse = restTemplate
-	                .getForEntity("http://localhost:8082/product/" + product.getProductId(), ProductDTO.class);
-	        ProductDTO productDTO = productResponse.getBody();
-	        OrderItemDTO orderItemDTO = new OrderItemDTO();
-	        orderItemDTO.setProductId(product.getProductId());
-	        orderItemDTO.setId(productDTO.getId());
-	        orderItemDTO.setMfd(productDTO.getMfd());
-	        orderItemDTO.setCategory(productDTO.getCategory());
-	        orderItemDTO.setProductName(productDTO.getProductName());
-	        orderItemDTO.setQuantity(product.getQuantity());
-	        orderItemDTO.setProductPrice(productDTO.getProductPrice());
-	        double itemTotal = product.getQuantity() * productDTO.getProductPrice();
-	        orderItemDTO.setItemTotal(itemTotal);
-	        
-	        orderItemsDTO.add(orderItemDTO);
-	    }
-	    
-	    OrderDTO orderDto = new OrderDTO();
-	    orderDto.setId(order.getId());
-	    orderDto.setOrderAmount(order.getOrderAmount());
-	    orderDto.setOrderDate(order.getOrderDate());
-	    orderDto.setOrderStatus(order.getOrderStatus());
-	    orderDto.setCustomerId(order.getCustomerId());
-	    orderDto.setCustomerName(customerDTO.getCustomerName());
-	    orderDto.setDob(customerDTO.getDob());
-	    orderDto.setEmail(customerDTO.getEmail());
-	    orderDto.setMobile(customerDTO.getMobile());
-	    orderDto.setCity(customerDTO.getCity());
-	    
-	    orderDto.setOrderItems(orderItemsDTO);
-	    
-	    return orderDto;
+		
+		Optional<Order> optionalOrder = orderRepository.findById(orderId);
+		if(optionalOrder.isEmpty()) {
+			throw new ResourceNotFoundException("Order not found");
+		}
+		Order order = optionalOrder.get();
+		
+		OrderDTO orderDTO =  modelMapper.map(order, OrderDTO.class);		
+				
+		CustomerDTO customerDTO = customerApiClient.getCustomerDetails(orderDTO.getCustomer().getId());
+		orderDTO.setCustomer(customerDTO);
+		
+		Set<OrderItemDTO> orderItemDtos = orderDTO.getOrderItems();
+		
+		for(OrderItemDTO item : orderItemDtos) {
+			ProductDTO productDTO = productApiClient.fetchProductDetails(item.getProduct().getId());
+			item.setProduct(productDTO);
+		}
+		
+		orderDTO.setOrderItems(orderItemDtos);
+		
+		return orderDTO;
 	}
-
 
 	@Override
 	public Set<OrderDTO> findAllOrdersByCustomer(long customerId) {
 		
-		List<Order> orders = orderRepository.findOrderByCustomerId(customerId);
-		
+		List<Order> orders = orderRepository.findOrderByCustomerId(customerId);		
+		CustomerDTO customerDTO = customerApiClient.getCustomerDetails(customerId);
+
 		Set<OrderDTO> orderDTOs = orders.stream().map(order-> modelMapper.map(order, OrderDTO.class)).collect(Collectors.toSet());
 		
+		for (OrderDTO order:orderDTOs) {
+			order.setCustomer(customerDTO);
+		};
+		
+		
+//		for(OrderDTO item : orderDTOs) {
+//			ProductDTO productDTO = productApiClient.fetchProductDetails(item.getId());
+//			System.out.println("id   "+item.getId());
+//			System.out.println("productdetails   "+productDTO.getProductName());
+//			//item.setOrderItems(productDTO);
+//		}
 		return orderDTOs;
 	}
 

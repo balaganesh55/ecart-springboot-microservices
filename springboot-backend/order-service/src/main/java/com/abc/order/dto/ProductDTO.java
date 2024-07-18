@@ -18,14 +18,4 @@ public class ProductDTO {
 	private double productPrice;
 	private LocalDate mfd;
 	private String category;
-	@Override
-	public String toString() {
-		return "ProductDTO{" +
-				"id=" + id +
-				", productName='" + productName + '\'' +
-				", productPrice=" + productPrice +
-				", mfd=" + mfd +
-				", category='" + category + '\'' +
-				'}';
-	}
 }

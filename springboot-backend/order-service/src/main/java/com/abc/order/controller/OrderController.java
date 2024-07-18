@@ -23,11 +23,11 @@ public class OrderController {
 	private OrderService orderService;
 	
 	@PostMapping("/")
-	public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDTO) {
+	public ResponseEntity<String> createOrder(@RequestBody OrderDTO orderDTO) {
 		
-		orderService.saveOrder(orderDTO);
+		String message = orderService.saveOrder(orderDTO);
 		
-		return new ResponseEntity<>(orderDTO, HttpStatus.CREATED);
+		return new ResponseEntity<>(message, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{orderId}")

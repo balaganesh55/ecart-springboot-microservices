@@ -6,7 +6,7 @@ import com.abc.order.dto.OrderDTO;
 
 public interface OrderService {
 
-	OrderDTO saveOrder(OrderDTO orderDTO);
+	String saveOrder(OrderDTO orderDTO);
 	
 	OrderDTO findOrderById(long orderId);
 	

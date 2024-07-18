@@ -18,11 +18,6 @@ public class OrderDTO {
 	private double orderAmount;
 	private LocalDate orderDate;
 	private String orderStatus;
-	private long customerId;
-	private String customerName;
-	private LocalDate dob;
-	private String mobile;
-	private String email;
-	private String city;
+	private CustomerDTO customer;
 	private Set<OrderItemDTO> orderItems;
 }
