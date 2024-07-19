@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.abc.order.dto.CustomerDTO;
 
-@FeignClient(value="CUSTOMER-SERVICE")
+@FeignClient(value="CUSTOMER-SERVICE", fallback=CustomerApiCallback.class)
 public interface CustomerApiClient {
 
 	@GetMapping("/customer/{customerId}")
