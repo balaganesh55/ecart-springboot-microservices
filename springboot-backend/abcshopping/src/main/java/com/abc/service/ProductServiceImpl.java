@@ -60,4 +60,34 @@ public class ProductServiceImpl implements ProductService {
 		return products.stream().map(product -> modelMapper.map(product, ProductDTO.class)).collect(Collectors.toSet());
 	}
 
+	@Override
+	public ProductDTO updateProduct(ProductDTO product) {
+		
+		Optional<Product> optionalProduct = productRepository.findById(product.getId());
+		if(optionalProduct.isEmpty()) {
+			throw new ResourceNotFoundException("Produt not found with id: "+product.getId());
+		}
+			
+		Product productEntity = modelMapper.map(product, Product.class);	
+		
+		productRepository.save(productEntity);
+		
+		product = modelMapper.map(productEntity, ProductDTO.class);
+		
+		return product;
+	}
+
+	@Override
+	public void deleteProduct(long productId) {
+		
+		Optional<Product> optionalProduct = productRepository.findById(productId);
+		if(optionalProduct.isEmpty()) {
+			throw new ResourceNotFoundException("Produt not found with id: "+productId);
+		}
+		
+		Product product = optionalProduct.get();
+		
+		productRepository.delete(product);
+	}
+
 }

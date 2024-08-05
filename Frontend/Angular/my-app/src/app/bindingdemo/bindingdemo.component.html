@@ -1,0 +1,17 @@
+<!-- <h2>{{title}}</h2> -->
+
+<h1 [innerText] ="title">   </h1>
+
+<button [disabled] = "isDisabled">Click</button><br>
+
+<img [src]="imgPath"/>
+
+<p [style.color] = "'red'">This is para1</p>
+
+<button [style.color] = "status == 'error' ? 'red' : 'green'">Submit</button>
+
+<h1 [ngStyle] = "styleClass">Customer Details</h1>
+
+<p>Id : {{myCustomer.customerId}}</p>
+<p>Name : {{myCustomer.customerName}}</p>
+<p>Age : {{myCustomer.customerAge}}</p>

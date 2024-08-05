@@ -1,0 +1,9 @@
+<h2>Parent</h2>
+
+<h3>List of Courses</h3>
+
+<p *ngFor="let c of courses">
+    {{c}}
+</p>
+
+<app-item-output (newItemEvent) ="addCourse($event)"/>

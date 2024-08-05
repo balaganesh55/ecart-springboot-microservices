@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+</head>
+<body>
+    <h3>Registration Form</h3>
+    <form>
+        <div>
+            <label>FirstName</label>
+            <input type="text" name="fname" pattern="[A-Za-z]{5,15}"/>
+        </div>
+        <div>
+            <label>LastName</label>
+            <input type="text" name="lname" />
+        </div>
+        <div>
+            <label>UserName</label>
+            <input type="text" name="uname" pattern="[A-Za-z0-9_-]{5,10}"/>
+        </div>
+        
+        <div>
+            <label>Gender</label>
+            <input type="radio" name="gender" value="male"/>Male
+            <input type="radio" name="gender" value="female"/>Female
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="email" name="email" size="50"/>
+        </div>
+        <div>
+            <label>DOB</label>
+            <input type="datetime-local" name="dob"/>
+        </div>
+        <div>
+            <label>Country</label>
+            <select name="country">
+                <option value="#">--Select--</option>
+                <option value="India">IND</option>
+                <option value="UK">UK</option>
+                <option value="US">US</option>
+                <option value="Russia">RUSSIA</option>
+            </select>
+        </div>
+        <div>
+            <label>Skills</label>
+            <input type="checkbox" name="skills" value="corejava"/>Core Java
+            <input type="checkbox" name="skills" value="sql"/>SQL
+            <input type="checkbox" name="skills" value="git"/>GIT
+            <input type="checkbox" name="skills" value="hibernate"/>Hibernate
+            <input type="checkbox" name="skills" value="spring"/>Spring Framework
+        </div>
+
+
+
+        <input type="submit" value="register" />
+    </form>    
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Demo</title>
+    <script>
+       function add() {
+        //how to get values from html text boxes
+        var a = parseInt(document.getElementById("a").value);
+        var b = parseInt(document.getElementById("b").value);
+        var c = a+b;
+        alert("sum: "+c);
+       }
+
+    </script>
+</head>
+<body>
+    Enter A value : <input type="text" name="a" id="a" />
+    Enter B value : <input type="text" name="b" id="b" />
+
+   <button onclick="add()">add</button>
+    
+</body>
+</html>

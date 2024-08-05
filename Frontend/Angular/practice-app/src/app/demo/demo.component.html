@@ -1,0 +1,45 @@
+<p>demo works!</p>
+<h2 [innerHTML]="name" ></h2>
+<p [style.color] = "color">This is para1</p>
+<button (click)="button()">click me</button>
+<img src="imgpath"/>
+<input type="text" name="username" [(ngModel)]="username"/>
+<h1>hello {{username}}</h1>
+<p *ngFor="let i of obj">
+    {{i}}
+</p>
+
+<h3>List of products</h3>
+<table border="1">
+    <thead>
+        <tr >
+            <td [ngStyle]="styleClass">productId</td>
+            <td [ngStyle]="styleClass">productName</td>
+            <td [ngStyle]="styleClass">productPrice</td>
+            <td [ngStyle]="styleClass">category</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let i of products">
+        <td [ngStyle]="styleClass">{{i.productId}}</td>
+        <td [ngStyle]="styleClass">{{i.productName}}</td>
+        <td [ngStyle]="styleClass">{{i.productPrice}}</td>
+        <td [ngStyle]="styleClass">{{i.category}}</td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- <button *ngIf="isLogged" (click)="sayHello()">Logout</button>--> -->
+ <p *ngIf="isLogged; else elseBlock" >
+    <button >Logout</button>
+</p>
+<ng-template #elseBlock>
+    <button>Login</button>
+</ng-template>
+<h1>switch</h1>
+<input type="text" name="status" [(ngModel)]="status"/>
+<p [ngSwitch]="status" >
+    <button *ngSwitchCase="'1'" style="color: green;">Success</button>
+    <button *ngSwitchCase="'2'" style="color: red;" >failed</button>
+    <button *ngSwitchCase="'3'" style="color: yellow;">Pending</button>
+</p> 

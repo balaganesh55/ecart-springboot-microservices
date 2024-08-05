@@ -12,4 +12,8 @@ public interface ProductService {
 	
 	Set<ProductDTO> findAllProducts();
 	
+	ProductDTO updateProduct(ProductDTO product);
+	
+	void deleteProduct(long productId);
+	
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Validation Form</title>
+</head>
+<body>
+    <h1>Input Validation Form</h1>
+    <form >
+
+        <label for="username">Username:</label>
+        <input
+            type="text"
+            id="username"
+            name="username"
+            pattern="[A-Za-z0-9 _-]+"
+            title="Alphanumeric characters, spaces, dashes, and underscores only"
+            required
+            placeholder="Enter your username"
+        >
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

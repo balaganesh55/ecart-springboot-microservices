@@ -1,0 +1,9 @@
+<h2>parent component</h2>
+
+<h4>sending data to child component</h4>
+<button (click)="increment()">click</button>
+<app-child [counter]="counter" (fruit)="addFruit($event)"/>
+
+<h4>receiving  data from child component</h4>
+<p *ngFor="let a of fruits">
+    {{a}}</p>

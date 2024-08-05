@@ -1,0 +1,46 @@
+<h3>Registration form</h3>
+<form [formGroup]="form" (ngSubmit)="onSave()">
+    <div>
+        <label> First Name: </label>
+        <input type="text" formControlName="FirstName"/>
+    </div>
+    <div *ngIf="FirstName?.invalid&&(FirstName?.dirty|| FirstName?.touched)" class="alert alert-danger">
+        <div *ngIf="FirstName?.hasError('required')">
+            <span class="errMsg">First Name is Required</span>
+        </div>
+    </div>
+    <div>
+        <label> Last Name: </label>
+        <input type="text" formControlName="LastName"/>
+    </div>
+    <div *ngIf="LastName?.invalid&&(LastName?.dirty|| LastName?.touched)" class="alert alert-danger">
+        <div *ngIf="LastName?.hasError('required')">
+            <span class="errMsg">Last Name is Required</span>
+        </div>
+    </div>
+    <div>
+        <label> Email: </label>
+        <input type="email" formControlName="Email"/>
+    </div>
+    
+    <div>
+        <label> Mobile Number: </label>
+        <input type="number" formControlName="Mobile"/>
+    </div>
+    <div>
+        <label> Gender </label>
+        <input type="radio" value="Male" formControlName="Gender"/>Male
+        <input type="radio" value="Female" formControlName="Gender"/>Female
+    </div>
+    <button type="submit">submit</button>
+</form>
+
+<!-- <h5>Registration details</h5>
+ <p>{{FirstName}}</p>
+<p>{{LastName}}</p>
+<p>{{Email}}</p>
+<p>{{Mobile}}</p>
+<p>{{Gender}}</p> -->
+
+
+

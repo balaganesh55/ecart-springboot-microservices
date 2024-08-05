@@ -1,0 +1,11 @@
+
+<form #addingnumbers="ngForm" (ngSubmit)="addNumbers(addingnumbers)">
+  <label>enter first number</label>
+  <input type="number" name="num1" id ="num1" ngModel/>
+  <label>enter second number</label>
+  <input type="number" name="num2" id ="num2" ngModel/>
+  
+  
+  <button type="submit">add</button>
+  <h1>{{result}}</h1>
+  </form>

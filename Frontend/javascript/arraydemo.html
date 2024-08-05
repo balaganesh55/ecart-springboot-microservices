@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Demo</title>
+</head>
+<body>
+    <script>
+        var nums = [10,20,30,40];
+
+        for(var i=0;i<nums.length;i++) {
+            document.write(nums[i]+" ");
+        }
+      
+        document.write("<br>Array element at index 2 = "+nums[2]);
+
+        nums.push(50);
+        nums.push(60);
+
+        document.write("<br>After adding two elements:<br>");
+
+        for(var i=0;i<nums.length;i++) {
+            document.write(nums[i]+" ");
+        }
+
+        nums.pop();
+        document.write("<br>After deleting one elements:<br>");
+        
+        for(var i=0;i<nums.length;i++) {
+            document.write(nums[i]+" ");
+        }        
+
+    </script>
+</body>
+</html>

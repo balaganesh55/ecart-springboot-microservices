@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Function Demo2</title>
+</head>
+
+<body>
+    <h3>Javascript Function</h3>
+    <script>
+
+        var f1 = function () {
+            document.write("<br>Hello JS function!!!!!!!!");
+        };
+
+        //es6 - arrow functions
+        var f2 = () => {
+            document.write("<br>Hello Arrow function!!!!!!!!");
+        }
+
+        var f3 = (a,b) => {
+            return a+b;
+        }
+
+
+       f1(); //function calling
+
+       f2(); //function calling
+
+       var result = f3(10,20);
+       document.write("<br>sum: "+result);
+       
+    </script>
+</body>
+
+</html>

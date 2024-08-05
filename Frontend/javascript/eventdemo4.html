@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Demo</title>
+    <script>
+       function changeStyle() {
+       
+        // document.getElementById("p1").style.color = "red";
+        // document.getElementById("p1").style.fontSize = "20px";
+
+        // document.getElementById("p2").style.color = "green";
+        // document.getElementById("p2").style.fontSize = "20px";
+
+        // document.getElementById("p3").style.color = "blue";
+        // document.getElementById("p3").style.fontSize = "20px";
+
+        //Finding element by class name
+        // var element = document.getElementsByClassName("mypara");
+
+        //Finding element by tag name
+        var element = document.getElementsByTagName("p");
+
+        element[0].style.color = "red";
+        element[1].style.color = "green";
+        element[2].style.color = "blue";            
+       }
+
+    </script>
+</head>
+<body>
+   
+   <h1>This is heading</h1>
+
+   <p id="p1" class="mypara">This is  para1</p>
+   <p id="p2" class="mypara">This is  para2</p>
+   <p id="p3" class="mypara">This is  para3</p>
+
+   <button onclick="changeStyle()">Change CSS Style</button>    
+    
+</body>
+</html>

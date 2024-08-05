@@ -1,0 +1,19 @@
+<h3>Fetch all products</h3>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let p of products" style="padding: 10px;">
+        <td style="padding: 10px;">{{p.id}}</td>
+        <td style="padding: 10px;">{{p.productName}}</td>
+        <td><a [routerLink]="['/getproduct/',p.id]" style="padding: 10px;">view</a></td>
+        <td><a [routerLink]="['/updateproduct/',p.id]" style="padding: 10px;">Edit</a></td>
+        <td><a [routerLink]="['/deleteproduct/',p.id]" style="padding: 10px;">Delete</a></td>
+    </tbody>
+</table>
+

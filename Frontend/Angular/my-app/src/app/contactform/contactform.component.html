@@ -1,0 +1,42 @@
+<h2>Contact Form</h2>
+
+<form [formGroup]="profileForm" (ngSubmit)="createProfile()">
+    <div>
+        <label>FirstName</label>
+        <input type="text" formControlName="firstName" />
+        <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="alert alert-danger">
+            <div *ngIf="firstName?.hasError('required')">
+                <span class="errMsg">FirstName is Required</span>
+            </div>
+            <div *ngIf="firstName?.hasError('minlength')">
+                <span class="errMsg">FirstName should contains atleast 5 characters</span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <label>LastName</label>
+        <input type="text" formControlName="lastName" />
+        <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="alert alert-danger">
+            <div *ngIf="lastName?.hasError('required')">
+                <span class="errMsg">LastName is Required</span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <label>Email</label>
+        <input type="email" formControlName="email" />
+    </div>
+    <div>
+        <label>Gender</label>
+        <input type="radio" name="gender" value="male" formControlName="gender" />M
+        <input type="radio" name="gender" value="female" formControlName="gender" />F
+    </div>
+    <input type="submit" [disabled]="profileForm.invalid" value="submit" />
+</form>
+
+<div>
+    <div>profileForm.valid= {{ profileForm.valid }}</div>
+    <div>profileForm.invalid = {{ profileForm.invalid }}</div>
+    <div>profileForm.status = {{ profileForm.status }}</div>
+    <div>profileForm.disabled = {{ profileForm.disabled }}</div>
+</div>
