@@ -1,0 +1,17 @@
+<h2>Get all customers</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let c of customers">
+            <td style="padding: 10px;">{{c.id}}</td>
+            <td style="padding: 10px;">{{c.customerName}}</td>
+            <td><a [routerLink]="['/getcustomer/',c.id]" style="padding: 10px;">view</a></td>
+            <td><a [routerLink]="['/updatecustomer/',c.id]" style="padding: 10px;">Edit</a></td>
+            <td><a [routerLink]="['/deletecustomer/',c.id]" style="padding: 10px;">Delete</a></td>
+        </tbody>
+    </table>

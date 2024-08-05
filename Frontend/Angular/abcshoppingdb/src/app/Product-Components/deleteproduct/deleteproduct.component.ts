@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { ProductService } from '../services/product.service';
+import { ProductService } from '../../services/product.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

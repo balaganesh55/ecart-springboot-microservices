@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Product } from '../model/product';
-import { ProductService } from '../services/product.service';
+import { Product } from '../../model/product';
+import { ProductService } from '../../services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 

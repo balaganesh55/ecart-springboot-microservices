@@ -1,0 +1,28 @@
+<h2>Update customer!</h2>
+<form [formGroup]="customerForm" (ngSubmit)="editCustomer()">
+    <div>
+        <label>id : </label>
+        <input type="text" id="id" formControlName="id"/>
+    </div>
+    <div>
+        <label>customer name : </label>
+        <input type="text" formControlName="customerName"/>
+    </div>
+    <div>
+        <label>D.O.B : </label>
+        <input type="date" formControlName="dob" />
+    </div>
+    <div>
+        <label>Mobile : </label>
+        <input type="number" formControlName="mobile"/>
+    </div>
+    <div>
+        <label>Email : </label>
+        <input type="email" formControlName="email" />
+    </div>
+    <div>
+        <label>City : </label>
+        <input type="text" formControlName="city" />
+    </div>
+    <input type="submit" value="update"/>
+</form>

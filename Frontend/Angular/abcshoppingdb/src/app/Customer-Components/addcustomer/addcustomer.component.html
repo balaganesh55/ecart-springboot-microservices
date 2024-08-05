@@ -1,0 +1,24 @@
+<h2>Add customer!</h2>
+<form #customerform="ngForm" (ngSubmit)="addCustomer(customerform)">
+    <div>
+        <label>customer name : </label>
+        <input type="text" name="customerName" ngModel/>
+    </div>
+    <div>
+        <label>D.O.B : </label>
+        <input type="date" name="dob" ngModel/>
+    </div>
+    <div>
+        <label>Mobile : </label>
+        <input type="number" name="mobile" ngModel/>
+    </div>
+    <div>
+        <label>Email : </label>
+        <input type="email" name="email" ngModel/>
+    </div>
+    <div>
+        <label>City : </label>
+        <input type="text" name="city" ngModel/>
+    </div>
+    <input type="submit" value="save"/>
+</form>

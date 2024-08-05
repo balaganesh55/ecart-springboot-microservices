@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ProductService } from '../services/product.service';
+import { ProductService } from '../../services/product.service';
 @Component({
   selector: 'app-addproduct',
   standalone: true,

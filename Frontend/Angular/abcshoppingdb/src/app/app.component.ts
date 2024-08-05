@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FetchallproductsComponent } from './fetchallproducts/fetchallproducts.component';
+import { FetchallproductsComponent } from './Product-Components/fetchallproducts/fetchallproducts.component';
 
 @Component({
   selector: 'app-root',

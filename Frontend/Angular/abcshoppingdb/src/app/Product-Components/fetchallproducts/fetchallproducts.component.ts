@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { Product } from '../model/product';
-import { ProductService } from '../services/product.service';
+import { Product } from '../../model/product';
+import { ProductService } from '../../services/product.service';
 // import {FormsModules} from '@angular/forms'
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
